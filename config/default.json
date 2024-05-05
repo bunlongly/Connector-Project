@@ -1,5 +1,6 @@
 {
-    "mongoURI": "mongodb+srv://bunlong:bunlong123@cluster0.idry7ey.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0",
-    "jwtSecret": "mysecrettoken"
-    
+  "mongoURI": "mongodb+srv://bunlong:bunlong123@cluster0.idry7ey.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0",
+  "jwtSecret": "mysecrettoken",
+  "githubClientId": "Ov23liCCNNWwQYH5TazS",
+  "githubSecret": "5e5a733e470d8a8dd97052ebf9b209e7d4fab59d"
 }

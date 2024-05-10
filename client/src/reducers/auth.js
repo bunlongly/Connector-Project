@@ -6,7 +6,8 @@ import {
   LOGIN_SUCCESS,
   //LOGIN_FAIL,
   LOGOUT,
-  ACCOUNT_DELETED
+  ACCOUNT_DELETED,
+  LOGIN_FAIL
 } from '../actions/types';
 
 const initialState = {
@@ -29,7 +30,7 @@ function authReducer(state = initialState, action) {
       };
     case REGISTER_SUCCESS:
     case LOGIN_SUCCESS:
-    localStorage.setItem('token', payload.token)
+      localStorage.setItem('token', payload.token);
       return {
         ...state,
         ...payload,
@@ -37,14 +38,15 @@ function authReducer(state = initialState, action) {
         loading: false
       };
     case ACCOUNT_DELETED:
+    case LOGIN_FAIL:
     case AUTH_ERROR:
     case LOGOUT:
-      localStorage.removeItem('token')
+      localStorage.removeItem('token');
       return {
         ...state,
         token: null,
         isAuthenticated: false,
-        loading: false,
+        loading: false
         // user: null
       };
     default:

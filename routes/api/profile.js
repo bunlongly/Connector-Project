@@ -3,7 +3,7 @@ const request = require('request');
 const config = require('config');
 const router = express.Router();
 const auth = require('../../middleware/auth');
-const { check, validatorResult } = require('express-validator');
+const { check, validationResult } = require('express-validator');
 
 const Profile = require('../../models/Profile');
 const User = require('../../models/User');
@@ -38,12 +38,12 @@ router.post(
   [
     auth,
     [
-      check('status', 'Status is required').not().isEmpty,
-      check('skills', 'Skills is required').not().isEmpty()
+      check('status', 'Status is required').not().isEmpty(),
+      check('skills', 'Skills is required').not().isEmpty(),
     ]
   ],
   async (req, res) => {
-    const errors = validatorResult(req);
+    const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
     }
@@ -80,7 +80,7 @@ router.post(
     profileFields.social = {};
     if (youtube) profileFields.social.youtube = youtube;
     if (twitter) profileFields.social.twitter = twitter;
-    if (facebook) profileFields.social.youtube = youtube;
+    if (facebook) profileFields.social.facebook = facebook
     if (linkedin) profileFields.social.linkedin = linkedin;
     if (instagram) profileFields.social.instagram = instagram;
 
@@ -106,8 +106,6 @@ router.post(
       console.error(err.message);
       res.status(500).send('Server Error');
     }
-
-    res.send('hello');
   }
 );
 

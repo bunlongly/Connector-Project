@@ -87,7 +87,7 @@ const AddEducation = ({ addEducation }) => {
                 checked={current}
                 onChange={handleCheckboxChange}
               />{' '}
-              Current Job
+              Current School
             </p>
           </div>
           <div className='form-group'>

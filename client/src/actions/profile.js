@@ -1,6 +1,12 @@
 import axios from 'axios';
 import { setAlert } from './alert';
-import { GET_PROFILE, PROFILE_ERROR, UPDATE_PROFILE } from './types';
+import {
+  CLEAR_PROFILE,
+  GET_PROFILE,
+  PROFILE_ERROR,
+  UPDATE_PROFILE,
+  ACCOUNT_DELETED
+} from './types';
 
 const API_BASE_URL = '/api/profile'; // Base URL for profile API endpoints
 
@@ -59,7 +65,6 @@ export const createProfile =
     }
   };
 
-
 //Add Experience
 export const addExperience = (formData, navigate) => async dispatch => {
   const config = {
@@ -80,16 +85,16 @@ export const addExperience = (formData, navigate) => async dispatch => {
     dispatch({
       type: PROFILE_ERROR,
       payload: {
-        msg: err.response && err.response.data && err.response.data.errors
-              ? err.response.data.errors.map(error => error.msg).join(', ')
-              : 'Error with request',
+        msg:
+          err.response && err.response.data && err.response.data.errors
+            ? err.response.data.errors.map(error => error.msg).join(', ')
+            : 'Error with request',
         status: err.response ? err.response.status : 'Network error'
       }
     });
     dispatch(setAlert('Failed to add experience', 'danger'));
   }
 };
-
 
 //Add Education
 export const addEducation = (formData, navigate) => async dispatch => {
@@ -111,12 +116,75 @@ export const addEducation = (formData, navigate) => async dispatch => {
     dispatch({
       type: PROFILE_ERROR,
       payload: {
-        msg: err.response && err.response.data && err.response.data.errors
-              ? err.response.data.errors.map(error => error.msg).join(', ')
-              : 'Error with request',
+        msg:
+          err.response && err.response.data && err.response.data.errors
+            ? err.response.data.errors.map(error => error.msg).join(', ')
+            : 'Error with request',
         status: err.response ? err.response.status : 'Network error'
       }
     });
     dispatch(setAlert('Failed to add Education', 'danger'));
+  }
+};
+
+//Delete experience
+export const deleteExperience = id => async dispatch => {
+  try {
+    const res = await axios.delete(`${API_BASE_URL}/experience/${id}`);
+
+    dispatch({
+      type: UPDATE_PROFILE,
+      payload: res.data
+    });
+
+    dispatch(setAlert('Experience Remove', 'success'));
+  } catch (err) {
+    dispatch({
+      type: PROFILE_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status }
+    });
+  }
+};
+
+//Delete experience
+export const deleteEducation = id => async dispatch => {
+  try {
+    const res = await axios.delete(`${API_BASE_URL}/education/${id}`);
+
+    dispatch({
+      type: UPDATE_PROFILE,
+      payload: res.data
+    });
+
+    dispatch(setAlert('Education Remove', 'success'));
+  } catch (err) {
+    dispatch({
+      type: PROFILE_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status }
+    });
+  }
+};
+
+//Delete account & profile
+export const deleteAccount = id => async dispatch => {
+  if (window.confirm('Are you sure? This can NOT be undone!')) {
+    try {
+      const res = await axios.delete(`${API_BASE_URL}`);
+
+      dispatch({
+        type: CLEAR_PROFILE
+      });
+
+      dispatch({
+        type: ACCOUNT_DELETED
+      });
+
+      dispatch(setAlert('Your account has been permanantly deleted'));
+    } catch (err) {
+      dispatch({
+        type: PROFILE_ERROR,
+        payload: { msg: err.response.statusText, status: err.response.status }
+      });
+    }
   }
 };

@@ -172,7 +172,7 @@ router.put(
     check('from', 'From date is required').not().isEmpty()
   ],
   async (req, res) => {
-    const errors = validatorResult(req);
+    const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
     }
@@ -241,18 +241,18 @@ router.put(
     check('from', 'From date is required').not().isEmpty()
   ],
   async (req, res) => {
-    const errors = validatorResult(req);
+    const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
     }
 
-    const { school, degree, fieldsofstudy, from, to, current, description } =
+    const { school, degree, fieldofstudy, from, to, current, description } =
       req.body;
 
     const newEdu = {
       school,
       degree,
-      fieldsofstudy,
+      fieldofstudy,
       from,
       to,
       current,

@@ -21,7 +21,8 @@ export const getCurrentProfile = () => async dispatch => {
       payload: res.data
     });
   } catch (err) {
-    console.error('Failed to fetch profile:', err);
+    dispatch({ type: CLEAR_PROFILE });
+ 
     dispatch({
       type: PROFILE_ERROR,
       payload: {

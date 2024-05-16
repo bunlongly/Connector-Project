@@ -211,7 +211,7 @@ export const deleteExperience = id => async dispatch => {
   }
 };
 
-//Delete experience
+//Delete education
 export const deleteEducation = id => async dispatch => {
   try {
     const res = await axios.delete(`${API_BASE_URL}/education/${id}`);

@@ -1,0 +1,7 @@
+{
+    "mongoURI": "mongodb+srv://yourProductionMongoDBURI",
+    "jwtSecret": "yourProductionJWTSecret",
+    "githubClientId": "yourProductionGithubClientId",
+    "githubSecret": "yourProductionGithubSecret"
+  }
+  

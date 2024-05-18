@@ -7,7 +7,10 @@
     "start": "node server",
     "server": "nodemon server",
     "client": "npm start --prefix client",
-    "dev" : "concurrently \"npm run server\" \"npm run client\""
+    "dev" : "concurrently \"npm run server\" \"npm run client\"",
+    "build:backend": "echo 'Backend build steps if any'",
+    "build:client": "npm run build --prefix client",
+    "build": "npm run build:backend && npm run build:client"
   },
   "author": "Bunlong",
   "license": "MIT",
